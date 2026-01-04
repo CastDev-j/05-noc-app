@@ -1,7 +1,7 @@
-console.log("Hello from Node.js + TypeScript! 🚀");
+import { ServerApp } from "./presentation/server";
 
 function main() {
-  console.log("Application started");
+  ServerApp.start();
 }
 
 main();
