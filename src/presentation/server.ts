@@ -6,7 +6,7 @@ const successCallback = () => {
 };
 
 const errorCallback = (error: Error) => {
-  console.error("Service is not reachable", error);
+  console.error("Service is not reachable");
 };
 
 export class ServerApp {
@@ -16,7 +16,7 @@ export class ServerApp {
       onTick: async () => {
         const isReachable = await new CheckService(
           successCallback,
-          errorCallback
+          errorCallback,
         ).execute("http://localhost:3000");
         console.log({ isReachable });
       },
