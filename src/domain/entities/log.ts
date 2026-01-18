@@ -1,4 +1,4 @@
-export type LogLevel = "low" | "medium" | "high";
+export type LogLevel = "low" | "medium" | "high" | "all";
 
 export class LogEntity {
   public level: LogLevel;
