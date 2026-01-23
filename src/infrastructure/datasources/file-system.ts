@@ -73,12 +73,15 @@ export class FileSystemDataSource implements LogDataSource {
       .split("\n")
       .filter((line) => line.trim())
       .map((line) => {
-        const { createdAt, level, message } = JSON.parse(line) as LogEntity;
+        const { createdAt, level, message, origin } = JSON.parse(
+          line,
+        ) as LogEntity;
 
         return {
           createdAt: new Date(createdAt),
           level: level as LogLevel,
           message,
+          origin,
         };
       });
   }

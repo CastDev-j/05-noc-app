@@ -18,6 +18,9 @@
         "typescript": "^5.7.2"
     },
     "dependencies": {
-        "cron": "^4.4.0"
+        "@types/nodemailer": "^7.0.5",
+        "cron": "^4.4.0",
+        "dotenv": "^17.2.3",
+        "nodemailer": "^7.0.12"
     }
 }

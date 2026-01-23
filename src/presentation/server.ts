@@ -3,6 +3,11 @@ import { CronService } from "./cron/cron-service";
 import { LogRepositoryImpl } from "@/infrastructure/repositories/log";
 import { FileSystemDataSource } from "@/infrastructure/datasources/file-system";
 
+interface StartOptions {
+  cronTime?: string;
+  serviceUrl?: string;
+}
+
 const successCallback = () => {
   console.log("Service is reachable");
 };
@@ -14,17 +19,22 @@ const errorCallback = (error: Error) => {
 const logRepository = new LogRepositoryImpl(new FileSystemDataSource());
 
 export class ServerApp {
-  static start(): void {
-    CronService.createJob({
-      cronTime: "*/5 * * * * *",
-      onTick: async () => {
-        const isReachable = await new CheckService(
-          logRepository,
-          successCallback,
-          errorCallback,
-        ).execute("http://localhost:3000");
-        console.log({ isReachable });
-      },
-    });
+  static start({
+    cronTime = "*/5 * * * * *",
+    serviceUrl = "http://localhost:3000",
+  }: StartOptions = {}): void {
+    console.log("Server is running...");
+
+    // CronService.createJob({
+    //   cronTime,
+    //   onTick: async () => {
+    //     const isReachable = await new CheckService(
+    //       logRepository,
+    //       successCallback,
+    //       errorCallback,
+    //     ).execute(serviceUrl);
+    //     console.log({ isReachable });
+    //   },
+    // });
   }
 }

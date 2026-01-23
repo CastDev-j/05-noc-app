@@ -21,16 +21,21 @@ export class CheckService implements CheckServiceUseCase {
 
       if (!req.ok) throw new Error("Failed to fetch the URL");
 
-      const log = new LogEntity("low", `Service at ${url} is reachable.`);
+      const log = new LogEntity({
+        level: "low",
+        message: `Service at ${url} is reachable.`,
+        origin: url,
+      });
       this.logRepository.saveLog(log);
 
       this.successCallback();
       return req.ok;
     } catch (error) {
-      const log = new LogEntity(
-        "high",
-        `Service at ${url} is unreachable. Error: ${(error as Error).message}`,
-      );
+      const log = new LogEntity({
+        level: "high",
+        message: `Service at ${url} is unreachable. Error: ${(error as Error).message}`,
+        origin: url,
+      });
       this.logRepository.saveLog(log);
       0;
 
