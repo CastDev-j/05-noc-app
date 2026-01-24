@@ -2,6 +2,7 @@ import { CheckService } from "@/domain/use-cases/checks/check-service";
 import { CronService } from "./cron/cron-service";
 import { LogRepositoryImpl } from "@/infrastructure/repositories/log";
 import { FileSystemDataSource } from "@/infrastructure/datasources/file-system";
+import { EmailService } from "./email/email";
 
 interface StartOptions {
   cronTime?: string;
@@ -36,5 +37,9 @@ export class ServerApp {
     //     console.log({ isReachable });
     //   },
     // });
+
+    const emailService = new EmailService();
+
+    // emailService.sendEmailWithFileSystemLogs("josejoseandre7@gmail.com");
   }
 }
