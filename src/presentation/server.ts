@@ -3,6 +3,7 @@ import { CronService } from "./cron/cron-service";
 import { LogRepositoryImpl } from "@/infrastructure/repositories/log";
 import { FileSystemDataSource } from "@/infrastructure/datasources/file-system";
 import { EmailService } from "./email/email";
+import { SendEmailLogs } from "@/domain/use-cases/email/send-email-logs";
 
 interface StartOptions {
   cronTime?: string;
@@ -39,6 +40,9 @@ export class ServerApp {
     // });
 
     const emailService = new EmailService();
+    // new SendEmailLogs(emailService, logRepository).execute(
+    //   "josejoseandre7@gmail.com",
+    // );
 
     // emailService.sendEmailWithFileSystemLogs("josejoseandre7@gmail.com");
   }

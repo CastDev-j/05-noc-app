@@ -1,3 +1,6 @@
+import { LogEntity } from "@/domain/entities/log";
+import { FileSystemDataSource } from "@/infrastructure/datasources/file-system";
+import { LogRepositoryImpl } from "@/infrastructure/repositories/log";
 import nodemailer from "nodemailer";
 
 interface SendMailOptions {
@@ -21,6 +24,12 @@ export class EmailService {
     },
   });
 
+  constructor(
+    private readonly logRepository = new LogRepositoryImpl(
+      new FileSystemDataSource(),
+    ),
+  ) {}
+
   async sendEmail({
     to,
     subject,
@@ -34,10 +43,9 @@ export class EmailService {
         html: htmlBody,
         attachments,
       });
-      console.log("Email sent: " + sentInformatioin.response);
+
       return true;
     } catch (error) {
-      console.error("Error sending email: " + (error as Error).message);
       return false;
     }
   }
