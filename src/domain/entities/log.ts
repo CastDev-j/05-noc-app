@@ -19,4 +19,13 @@ export class LogEntity {
     this.createdAt = createdAt ?? new Date();
     this.origin = origin;
   }
+
+  static fromObject(obj: any): LogEntity {
+    return new LogEntity({
+      level: obj.level,
+      message: obj.message,
+      origin: obj.origin,
+      createdAt: obj.createdAt ? new Date(obj.createdAt) : undefined,
+    });
+  }
 }
