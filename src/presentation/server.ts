@@ -6,6 +6,7 @@ import { FileSystemDataSource } from "@/infrastructure/datasources/file-system";
 import { SendEmailLogs } from "@/domain/use-cases/email/send-email-logs";
 import { MongoLog } from "@/infrastructure/datasources/mongo-log";
 import { LogModel } from "@/data/mongo/models/log";
+import { PostgresLog } from "@/infrastructure/datasources/postgres-log";
 
 interface StartOptions {
   cronTime?: string;
@@ -20,7 +21,7 @@ const errorCallback = (error: Error) => {
   console.error("Service is not reachable");
 };
 
-const logRepository = new LogRepositoryImpl(new MongoLog());
+const logRepository = new LogRepositoryImpl(new PostgresLog());
 
 export class ServerApp {
   static async start({
@@ -40,6 +41,8 @@ export class ServerApp {
     //     console.log({ isReachable });
     //   },
     // });
+
+    console.log(await logRepository.getLogs("all"));
 
     const emailService = new EmailService();
     // new SendEmailLogs(emailService, logRepository).execute(
