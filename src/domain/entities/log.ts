@@ -21,6 +21,14 @@ export class LogEntity {
   }
 
   static fromObject(obj: any): LogEntity {
+    const isNotValidObject =
+      !obj ||
+      typeof obj.level !== "string" ||
+      typeof obj.message !== "string" ||
+      typeof obj.origin !== "string";
+
+    if (isNotValidObject) throw new Error("Invalid log object");
+
     return new LogEntity({
       level: obj.level,
       message: obj.message,
